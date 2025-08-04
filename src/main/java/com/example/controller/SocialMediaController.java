@@ -38,14 +38,14 @@ public class SocialMediaController {
     }
 
     @GetMapping("/messages/{message_id}")
-    public ResponseEntity<Message> getMessageById(@RequestParam int message_id) {
+    public ResponseEntity<Message> getMessageById(@PathVariable int message_id) {
         Message message = messageService.getMessageById(message_id);
         // Always return HTTP Status Code 200 when fetching resources in RESTful environments.
         return ResponseEntity.status(HttpStatus.OK).body(message);
     }
 
     @GetMapping("/accounts/{account_id}/messages")
-    public ResponseEntity<List<Message>> getAllMessagesByAccountId(@RequestParam int account_id) {
+    public ResponseEntity<List<Message>> getAllMessagesByAccountId(@PathVariable int account_id) {
         List<Message> messages = messageService.getAllMessagesByAccountId(account_id);
         // Always return HTTP Status Code 200 when fetching resources in RESTful environments.
         return ResponseEntity.status(HttpStatus.OK).body(messages);
@@ -111,7 +111,7 @@ public class SocialMediaController {
 
     // PATCH
     @PatchMapping("/messages/{message_id}")
-    public ResponseEntity<Message> updateMessageById(@RequestParam int message_id) {
+    public ResponseEntity<Message> updateMessageById(@PathVariable int message_id) {
         Message message = messageService.getMessageById(message_id);
 
         if (message == null) {
@@ -132,7 +132,7 @@ public class SocialMediaController {
 
     // DELETE
     @DeleteMapping("/messages/{message_id}")
-    public ResponseEntity<Message> deleteMessageById(@RequestParam int message_id) {
+    public ResponseEntity<Message> deleteMessageById(@PathVariable int message_id) {
         Message message = messageService.deleteMessageById(message_id);
 
         if (message == null) {
