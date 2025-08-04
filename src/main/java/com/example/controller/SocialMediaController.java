@@ -37,16 +37,16 @@ public class SocialMediaController {
         return ResponseEntity.status(HttpStatus.OK).body(messages);
     }
 
-    @GetMapping("/messages/{message_id}")
-    public ResponseEntity<Message> getMessageById(@PathVariable int message_id) {
-        Message message = messageService.getMessageById(message_id);
+    @GetMapping("/messages/{messageId}")
+    public ResponseEntity<Message> getMessageById(@PathVariable int messageId) {
+        Message message = messageService.getMessageById(messageId);
         // Always return HTTP Status Code 200 when fetching resources in RESTful environments.
         return ResponseEntity.status(HttpStatus.OK).body(message);
     }
 
-    @GetMapping("/accounts/{account_id}/messages")
-    public ResponseEntity<List<Message>> getAllMessagesByAccountId(@PathVariable int account_id) {
-        List<Message> messages = messageService.getAllMessagesByAccountId(account_id);
+    @GetMapping("/accounts/{accountId}/messages")
+    public ResponseEntity<List<Message>> getAllMessagesByAccountId(@PathVariable int accountId) {
+        List<Message> messages = messageService.getAllMessagesByAccountId(accountId);
         // Always return HTTP Status Code 200 when fetching resources in RESTful environments.
         return ResponseEntity.status(HttpStatus.OK).body(messages);
     }
@@ -110,16 +110,16 @@ public class SocialMediaController {
 
 
     // PATCH
-    @PatchMapping("/messages/{message_id}")
-    public ResponseEntity<Message> updateMessageById(@PathVariable int message_id) {
-        Message message = messageService.getMessageById(message_id);
+    @PatchMapping("/messages/{messageId}")
+    public ResponseEntity<Message> updateMessageById(@PathVariable int messageId, @RequestBody String messageText) {
+        Message message = messageService.getMessageById(messageId);
 
         if (message == null) {
             // Return HTTP Status Code 400 Bad Request if the message is not found.
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
-        Message updatedMessage = messageService.updateMessageById(message_id);
+        Message updatedMessage = messageService.updateMessageById(messageId, messageText);
 
         if (updatedMessage == null) {
             // Return HTTP Status Code 400 if the message update failed.
@@ -131,9 +131,9 @@ public class SocialMediaController {
     }
 
     // DELETE
-    @DeleteMapping("/messages/{message_id}")
-    public ResponseEntity<Message> deleteMessageById(@PathVariable int message_id) {
-        Message message = messageService.deleteMessageById(message_id);
+    @DeleteMapping("/messages/{messageId}")
+    public ResponseEntity<Message> deleteMessageById(@PathVariable int messageId) {
+        Message message = messageService.deleteMessageById(messageId);
 
         if (message == null) {
             // Return HTTP Status Code 200 with no body if deletion was unsuccessful.
