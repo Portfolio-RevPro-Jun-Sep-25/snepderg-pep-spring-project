@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface MessageRepository extends JpaRepository<Message, Integer> {
     // postedBy refers to the Account's accountId
-    List<Message> findAllByAccountId(int postedBy);
+    List<Message> findAllByPostedBy(int postedBy);
 }
