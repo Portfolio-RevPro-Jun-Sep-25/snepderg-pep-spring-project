@@ -84,7 +84,7 @@ public class SocialMediaController {
 
         Account foundAccount = accountService.getAccountByUsername(accountUsername);
 
-        if (foundAccount == null) {
+        if (foundAccount == null || !accountService.loginIsValid(accountUsername, account.getPassword())) {
             // Return HTTP Status Code 401 if the account is not found.
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
