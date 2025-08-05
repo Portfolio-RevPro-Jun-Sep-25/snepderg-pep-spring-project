@@ -2,6 +2,10 @@ package com.example.service;
 
 import com.example.entity.Message;
 import com.example.repository.MessageRepository;
+
+import com.example.entity.Account;
+import com.example.repository.AccountRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,12 +21,14 @@ import java.util.Optional;
 @Service
 public class MessageService {
     MessageRepository messageRepository;
+    AccountRepository accountRepository;
 
     private static final int MESSAGE_CHAR_LIMIT = 255;
 
     @Autowired // Constructor injection
-    public MessageService(MessageRepository MessageRepository) {
-        this.messageRepository = MessageRepository;
+    public MessageService(MessageRepository messageRepository, AccountRepository accountRepository) {
+        this.messageRepository = messageRepository;
+        this.accountRepository = accountRepository;
     }
 
     public List<Message> getAllMessages() {
@@ -96,6 +102,12 @@ public class MessageService {
         }
 
         if (!isValidMessageText(message.getMessageText())) {
+            return false;
+        }
+
+        Account account = accountRepository.getById(message.getPostedBy());
+
+        if (account == null) {
             return false;
         }
 
