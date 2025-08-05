@@ -59,26 +59,25 @@ public class MessageService {
     }
 
     @Transactional
-    public Message updateMessageById(int messageId, String text) {
+    public Integer updateMessageById(int messageId, String text) {
         // Using findbyId to avoid EntityNotFoundException due to getById lazy loading.
         Optional<Message> optionalMessage = messageRepository.findById(messageId);
 
         if (optionalMessage.isEmpty()) {
-            return null;
+            return 0;
         }
 
         Message message = optionalMessage.get();
 
-        if (!isValidMessage(message)) {
-            return null;
+        if (!isValidMessage(message) || !isValidMessageText(text)) {
+            return 0;
         }
 
-        message.setMessageText(text);
-        return messageRepository.save(message);
+        return messageRepository.updateMessageTextById(messageId, message.getMessageText());
     }
 
     @Transactional
-    public int deleteMessageById(int messageId) {
+    public Integer deleteMessageById(int messageId) {
         return messageRepository.deleteByMessageId(messageId);
     }
 
