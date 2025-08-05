@@ -89,14 +89,6 @@ public class SocialMediaController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
-        boolean usernamesMatch = account.getUsername().equals(foundAccount.getUsername());
-        boolean passwordsMatch = account.getPassword().equals(foundAccount.getPassword());
-
-        if (!usernamesMatch && !passwordsMatch) {
-            // Return HTTP Status Code 401 if the credentials are incorrect.
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-
         // Return HTTP Status Code 200 if the credentials are correct.
         return ResponseEntity.status(HttpStatus.OK).body(foundAccount);
     }
