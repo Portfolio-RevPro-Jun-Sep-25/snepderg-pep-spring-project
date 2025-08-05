@@ -139,13 +139,6 @@ public class SocialMediaController {
     @DeleteMapping("/messages/{messageId}")
     public ResponseEntity<Message> deleteMessageById(@PathVariable int messageId) {
         Message message = messageService.deleteMessageById(messageId);
-
-        if (message == null) {
-            // Return HTTP Status Code 200 with no body if deletion was unsuccessful.
-            return ResponseEntity.status(HttpStatus.OK).build();
-        }
-
-        // Return HTTP Status Code 200 with body if deletion was successful.
-        return ResponseEntity.status(HttpStatus.OK).body(message);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
