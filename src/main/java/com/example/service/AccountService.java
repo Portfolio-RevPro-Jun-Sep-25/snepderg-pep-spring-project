@@ -2,12 +2,10 @@ package com.example.service;
 
 import com.example.entity.Account;
 import com.example.repository.AccountRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- * This service class demonstrates the use of the AccountRepository.
- */
 @Service
 public class AccountService {
     AccountRepository accountRepository;

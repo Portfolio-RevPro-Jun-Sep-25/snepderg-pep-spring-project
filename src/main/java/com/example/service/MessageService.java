@@ -15,9 +15,6 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * This service class demonstrates the use of the MessageRepository.
- */
 @Service
 public class MessageService {
     MessageRepository messageRepository;
