@@ -47,4 +47,20 @@ public class AccountService {
     public Account getAccountByUsername(String username) {
         return accountRepository.getByUsernameIgnoreCase(username);
     }
+
+    public boolean loginIsValid(String username, String password) {
+        Account account = accountRepository.getByUsernameIgnoreCase(username);
+
+        if (account == null) {
+            return false;
+        }
+
+        String actualPassword = account.getPassword();
+
+        if (!actualPassword.equals(password)) {
+            return false;
+        }
+
+        return true;
+    }
 }
