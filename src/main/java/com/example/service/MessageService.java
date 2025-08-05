@@ -34,7 +34,7 @@ public class MessageService {
     }
 
     public List<Message> getAllMessagesByAccountId(int account_id) {
-        return messageRepository.findAllByAccountId(account_id);
+        return messageRepository.findAllByPostedBy(account_id);
     }
 
     @Transactional
