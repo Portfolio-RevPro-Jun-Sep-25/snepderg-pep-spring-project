@@ -33,7 +33,13 @@ public class MessageService {
     }
 
     public Message getMessageById(int messageId) {
-        return messageRepository.getById(messageId);
+        Optional<Message> messageOptional = messageRepository.findById(messageId);
+
+        if (messageOptional.isEmpty()) {
+            return null;
+        }
+
+        return messageOptional.get();
     }
 
     public List<Message> getAllMessagesByAccountId(int account_id) {
@@ -70,7 +76,7 @@ public class MessageService {
             return 0;
         }
 
-        return messageRepository.updateMessageTextById(messageId, message.getMessageText());
+        return messageRepository.updateMessageTextById(messageId, text);
     }
 
     @Transactional
@@ -88,9 +94,9 @@ public class MessageService {
             return false;
         }
 
-        Account account = accountRepository.getById(message.getPostedBy());
+        Optional<Account> accountOptional = accountRepository.findById(message.getPostedBy());
 
-        if (account == null) {
+        if (accountOptional.isEmpty()) {
             return false;
         }
 
