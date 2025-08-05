@@ -116,23 +116,14 @@ public class SocialMediaController {
 
     // PATCH
     @PatchMapping("/messages/{messageId}")
-    public ResponseEntity<Message> updateMessageById(@PathVariable int messageId, @RequestBody String messageText) {
-        Message message = messageService.getMessageById(messageId);
+    public ResponseEntity<Integer> updateMessageById(@PathVariable int messageId, @RequestBody String messageText) {
+        Integer rowsAffected = messageService.updateMessageById(messageId, messageText);
 
-        if (message == null) {
-            // Return HTTP Status Code 400 Bad Request if the message is not found.
+        if (rowsAffected > 0) {
+            return ResponseEntity.status(HttpStatus.OK).body(rowsAffected);
+        } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-
-        Message updatedMessage = messageService.updateMessageById(messageId, messageText);
-
-        if (updatedMessage == null) {
-            // Return HTTP Status Code 400 if the message update failed.
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-
-        // Return HTTP Status Code 200 if the message update was successful.
-        return ResponseEntity.status(HttpStatus.OK).body(updatedMessage);
     }
 
     // DELETE
