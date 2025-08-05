@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -116,7 +117,8 @@ public class SocialMediaController {
 
     // PATCH
     @PatchMapping("/messages/{messageId}")
-    public ResponseEntity<Integer> updateMessageById(@PathVariable int messageId, @RequestBody String messageText) {
+    public ResponseEntity<Integer> updateMessageById(@PathVariable int messageId, @RequestBody Map<String, String> payload) {
+        String messageText = payload.get("messageText");
         Integer rowsAffected = messageService.updateMessageById(messageId, messageText);
 
         if (rowsAffected > 0) {
