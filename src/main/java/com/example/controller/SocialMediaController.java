@@ -137,8 +137,15 @@ public class SocialMediaController {
 
     // DELETE
     @DeleteMapping("/messages/{messageId}")
-    public ResponseEntity<Message> deleteMessageById(@PathVariable int messageId) {
-        messageService.deleteMessageById(messageId);
-        return ResponseEntity.status(HttpStatus.OK).build();
+    public ResponseEntity<Integer> deleteMessageById(@PathVariable int messageId) {
+        int rowsAffected = messageService.deleteMessageById(messageId);
+
+        // Return HTTP Status Code 200 regardless of success (idempotent)
+        // Return the number of rows if successful (should always be 1 though)
+        if (rowsAffected > 0) {
+            return ResponseEntity.status(HttpStatus.OK).body(rowsAffected);
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).build();
+        }
     }
 }

@@ -78,21 +78,20 @@ public class MessageService {
     }
 
     @Transactional
-    public Message deleteMessageById(int messageId) {
+    public int deleteMessageById(int messageId) {
         Optional<Message> optionalMessage = messageRepository.findById(messageId);
 
         if (optionalMessage.isEmpty()) {
-            return null;
+            return 0;
         }
 
         Message message = optionalMessage.get();
 
         if (!isValidMessage(message)) {
-            return null;
+            return 0;
         }
 
-        messageRepository.delete(message);
-        return message;
+        return messageRepository.deleteByMessageId(messageId);
     }
 
     // Helpers
